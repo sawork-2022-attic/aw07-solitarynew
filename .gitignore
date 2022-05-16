@@ -163,3 +163,7 @@ buildNumber.properties
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,intellij+all,macos,visualstudiocode
+/pos-carts/pos-carts.iml
+/pos-discovery/pos-discovery.iml
+/pos-gateway/pos-gateway.iml
+/pos-products/pos-products.iml
