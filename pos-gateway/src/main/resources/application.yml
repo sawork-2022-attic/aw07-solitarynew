@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: pos-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: products
+          uri: lb://pos-products
+          predicates:
+            - Path=/api/products/**
+        - id: customers
+          uri: lb://pos-carts
+          predicates:
+            - Path=/api/cart/**
+
+
+eureka:
+  client:
+    register-with-eureka: true # 注册到 Eureka-Server，默认为 true
+    fetch-registry: true # 从 Eureka-Server 获取注册表，默认为 true
+    service-url:
+      defaultZone: http://localhost:8888/eureka
+
