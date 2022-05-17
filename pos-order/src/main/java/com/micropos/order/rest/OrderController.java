@@ -21,16 +21,15 @@ public class OrderController implements OrderApi {
 //    @Resource
 //    private Supplier<String> send;
 
-    @Resource
-    private StreamBridge streamBridge;
+
 
     @Resource
     private OrderService orderService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/test")
-    void test(){
-        streamBridge.send("sms-in-0", "test");
-    }
+//    @RequestMapping(method = RequestMethod.GET, value = "/test")
+//    void test(){
+//        streamBridge.send("sms-in-0", "test");
+//    }
 
     @Override
     public ResponseEntity<Long> createOrder(OrderDto orderDto) {

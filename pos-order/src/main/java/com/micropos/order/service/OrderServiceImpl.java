@@ -7,6 +7,7 @@ import com.micropos.order.dao.OrderMapper;
 import com.micropos.order.dto.CartDto;
 import com.micropos.order.dto.OrderDto;
 import com.micropos.order.model.Order;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
 
@@ -24,6 +25,9 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderMapper orderMapper;
 
+    @Resource
+    private StreamBridge streamBridge;
+
     @Override
     public Long createOrder(OrderDto orderDto) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -38,6 +42,8 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal(orderDto.getTotal());
         order.setCart(cart.getBytes(StandardCharsets.UTF_8));
         orderMapper.insert(order);
+
+        streamBridge.send("create-in-0", order);
         return order.getId();
     }
 

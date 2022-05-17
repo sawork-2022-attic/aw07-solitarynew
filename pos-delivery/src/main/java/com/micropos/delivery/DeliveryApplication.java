@@ -1,5 +1,10 @@
 package com.micropos.delivery;
 
+import com.micropos.delivery.dto.DeliveryDto;
+import com.micropos.delivery.dto.OrderDto;
+import com.micropos.delivery.model.Delivery;
+import com.micropos.delivery.model.Order;
+import com.micropos.delivery.service.DeliveryService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,13 +26,25 @@ public class DeliveryApplication {
     @Resource
     private StreamBridge streamBridge;
 
+    @Resource
+    DeliveryService deliveryService;
 
     public static void main(String[] args) {
         SpringApplication.run(DeliveryApplication.class, args);
     }
 
+//    @Bean
+//    Consumer<String> sms() {
+//        return log::info;
+//    }
+
     @Bean
-    Consumer<String> sms() {
-        return log::info;
+    Consumer<Order> create() {
+        return order -> {
+            DeliveryDto deliveryDto = new DeliveryDto();
+            deliveryDto.setOrderId(order.getId());
+            deliveryDto.setStatus(DeliveryDto.StatusEnum.CREATED);
+            deliveryService.createDelivery(deliveryDto);
+        };
     }
 }
