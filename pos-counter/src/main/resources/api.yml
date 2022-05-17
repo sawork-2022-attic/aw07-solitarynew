@@ -6,7 +6,7 @@ info:
     name: MIT
 paths:
   /counter/checkout:
-    get:
+    post:
       summary: Checkout products
       operationId: checkout
       tags:
@@ -15,7 +15,7 @@ paths:
         description: Cart to checkout
         required: true
         content:
-          application/jso:
+          application/json:
             schema:
               $ref: '#/components/schemas/Cart'
       responses:

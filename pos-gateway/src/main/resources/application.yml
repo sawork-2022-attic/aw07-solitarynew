@@ -11,10 +11,22 @@ spring:
           uri: lb://pos-products
           predicates:
             - Path=/api/products/**
-        - id: customers
+        - id: carts
           uri: lb://pos-carts
           predicates:
             - Path=/api/cart/**
+        - id: orders
+          uri: lb://pos-order
+          predicates:
+            - Path=/api/order/**
+        - id: counter
+          uri: lb://pos-counter
+          predicates:
+            - Path=/api/counter/**
+        - id: delivery
+          uri: lb://pos-delivery
+          predicates:
+            - Path=/api/delivery/**
 
 
 eureka:

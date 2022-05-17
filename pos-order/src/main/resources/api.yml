@@ -1,77 +1,77 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: Products
+  title: Order
   license:
     name: MIT
 paths:
-  /cart:
-    get:
-      summary: List all items of the cart
-      operationId: listCart
-      tags:
-        - Cart
-      responses:
-        '200':
-          description: A successful response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Cart'
-        default:
-          description: The request cannot be fulfilled due to bad syntax
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /cart/add/{productId}:
+  /order:
     post:
-      summary: Add an item to the cart
-      operationId: addToCart
-      tags:
-        - Cart
-      parameters:
-        - name: productId
-          in: path
-          description: The ID of the product to add to the cart
-          required: true
-          schema:
-            type: string
+      summary: Create an order
+      operationId: createOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
       responses:
         '200':
-          description: A successful response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Cart'
-        default:
-          description: The request cannot be fulfilled due to bad syntax
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /cart/submit:
-    post:
-      summary: Submit the cart
-      operationId: submitCart
-      tags:
-        - Cart
-      responses:
-        '200':
-          description: A successful response
+          description: Order created
           content:
             application/json:
               schema:
                 type: integer
                 format: int64
-        default:
-          description: The request cannot be fulfilled due to bad syntax
+        '400':
+          description: Invalid order
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
+  /order/{id}:
+    get:
+      summary: Get an order
+      operationId: getOrder
+      parameters:
+        - name: id
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Order found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /order/all:
+    get:
+      summary: Get all orders
+      operationId: getAllOrders
+      responses:
+        '200':
+          description: Orders found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '404':
+          description: Orders not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 
 components:
   schemas:

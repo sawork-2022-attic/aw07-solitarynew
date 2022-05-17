@@ -4,4 +4,6 @@ import com.micropos.carts.model.Cart;
 
 public interface CartService {
     public Cart add(Cart cart, String productId, int amount);
+
+    Long submit(Cart cart);
 }

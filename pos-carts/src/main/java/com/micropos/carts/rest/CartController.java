@@ -40,4 +40,9 @@ public class CartController implements CartApi {
         if (cart == null) cart = new Cart();
         return new ResponseEntity<>(cartmapper.toCartDTO(cart), HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<Long> submitCart() {
+        return new ResponseEntity<>(cartService.submit(cart), HttpStatus.OK);
+    }
 }
